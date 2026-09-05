@@ -1,10 +1,13 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "wegwerf-repo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Keiko qualification fixture repository",
   "main": "index.js",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "private": true
 }

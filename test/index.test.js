@@ -1,0 +1,17 @@
+"use strict";
+
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const { sum, average } = require("../index.js");
+
+test("sum adds a list of numbers", () => {
+  assert.equal(sum([1, 2, 3]), 6);
+});
+
+test("sum of an empty list is 0", () => {
+  assert.equal(sum([]), 0);
+});
+
+test("average computes the mean of a list of numbers", () => {
+  assert.equal(average([1, 2, 3]), 2);
+});

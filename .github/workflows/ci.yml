@@ -19,3 +19,5 @@ jobs:
         run: npm ci --ignore-scripts || npm install --ignore-scripts
       - name: Run tests
         run: npm test
+      - name: Run the CI-only numerical stability regression
+        run: node --test ci/numerical-stability.ci.js

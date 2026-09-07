@@ -1,5 +1,7 @@
 "use strict";
 
+const selectFiniteNumbers = require("./lib/selectFiniteNumbers");
+
 /**
  * Sum a list of numbers.
  * @param {number[]} values
@@ -15,7 +17,13 @@ function sum(values) {
  * @returns {number}
  */
 function average(values) {
-  return sum(values) / values.length;
+  const finiteValues = selectFiniteNumbers(values);
+
+  if (finiteValues.length === 0) {
+    return 0;
+  }
+
+  return finiteValues.reduce((mean, value, index) => mean + (value - mean) / (index + 1), 0);
 }
 
 module.exports = { sum, average };

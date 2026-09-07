@@ -12,14 +12,18 @@ test("sum of an empty list is 0", () => {
   assert.equal(sum([]), 0);
 });
 
-test("average computes the mean of a list of numbers", () => {
+test("average computes the mean of finite numbers", () => {
   assert.equal(average([1, 2, 3]), 2);
 });
 
-test("average of an empty list is 0", () => {
+test("average returns 0 for an empty list and ignores non-finite entries", () => {
   assert.equal(average([]), 0);
+  assert.equal(average([1, 2, NaN, Infinity, -Infinity, 3]), 2);
 });
 
-test("average ignores non-finite entries", () => {
-  assert.equal(average([1, 2, NaN, Infinity, -Infinity, 3]), 2);
+test("average remains finite when the mathematical mean is finite", () => {
+  assert.equal(
+    average([Number.MAX_VALUE, Number.MAX_VALUE]),
+    Number.MAX_VALUE,
+  );
 });

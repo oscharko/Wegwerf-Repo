@@ -2,6 +2,7 @@
 
 const selectFiniteNumbers = require("./lib/selectFiniteNumbers.js");
 const median = require("./lib/median.js");
+const range = require("./lib/range.js");
 
 /**
  * Sum a list of numbers.
@@ -39,4 +40,4 @@ function average(values) {
   return mean;
 }
 
-module.exports = { sum, average, median };
+module.exports = { sum, average, median, range };

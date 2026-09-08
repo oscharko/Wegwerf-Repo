@@ -1,5 +1,7 @@
 "use strict";
 
+const finiteNumbers = require("./lib/finite-numbers.js");
+
 /**
  * Sum a list of numbers.
  * @param {number[]} values
@@ -15,7 +17,11 @@ function sum(values) {
  * @returns {number}
  */
 function average(values) {
-  return sum(values) / values.length;
+  const finiteValues = finiteNumbers(values);
+  if (finiteValues.length === 0) {
+    return 0;
+  }
+  return finiteValues.reduce((total, value) => total + value / finiteValues.length, 0);
 }
 
 module.exports = { sum, average };

@@ -1,6 +1,7 @@
 "use strict";
 
 const median = require("./lib/median.js");
+const range = require("./lib/range.js");
 const selectFiniteNumbers = require("./lib/selectFiniteNumbers.js");
 
 /**
@@ -34,4 +35,4 @@ function average(values) {
   return Object.is(mean, -0) ? 0 : mean;
 }
 
-module.exports = { sum, average, median };
+module.exports = { sum, average, median, range };

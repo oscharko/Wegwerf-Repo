@@ -23,3 +23,11 @@ test("average of an empty list is 0", () => {
 test("average ignores non-finite entries", () => {
   assert.equal(average([1, 2, NaN, Infinity, -Infinity, 3]), 2);
 });
+
+test("average of repeated Number.MAX_VALUE remains finite", () => {
+  assert.equal(average([Number.MAX_VALUE, Number.MAX_VALUE]), Number.MAX_VALUE);
+});
+
+test("average of opposite-signed Number.MAX_VALUE values is 0", () => {
+  assert.equal(average([-Number.MAX_VALUE, Number.MAX_VALUE]), 0);
+});

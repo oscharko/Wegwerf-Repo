@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { sum, average, median } = require("../index.js");
+const { sum, average, median, range } = require("../index.js");
 
 test("sum adds a list of numbers", () => {
   assert.equal(sum([1, 2, 3]), 6);
@@ -64,4 +64,27 @@ test("median does not mutate the caller input", () => {
 test("median stays numerically stable for maximum-magnitude pairs", () => {
   assert.equal(median([Number.MAX_VALUE, Number.MAX_VALUE]), Number.MAX_VALUE);
   assert.equal(median([-Number.MAX_VALUE, Number.MAX_VALUE]), 0);
+});
+
+test("range returns null for an empty list", () => {
+  assert.equal(range([]), null);
+});
+
+test("range returns null when all values are non-finite", () => {
+  assert.equal(range([NaN, Infinity, -Infinity]), null);
+});
+
+test("range ignores non-finite entries in mixed samples", () => {
+  assert.deepEqual(range([NaN, 3, Infinity, -2, -Infinity, 7]), {
+    min: -2,
+    max: 7,
+  });
+});
+
+test("range handles negative-only samples", () => {
+  assert.deepEqual(range([-9, -3, -12, -4]), { min: -12, max: -3 });
+});
+
+test("range handles a single finite value", () => {
+  assert.deepEqual(range([Infinity, 5, NaN]), { min: 5, max: 5 });
 });

@@ -20,6 +20,11 @@ test("average of an empty list is 0", () => {
   assert.equal(average([]), 0);
 });
 
-test("average ignores non-finite entries", () => {
+test("average ignores non-finite entries and empty input returns 0", () => {
   assert.equal(average([1, 2, NaN, Infinity, -Infinity, 3]), 2);
+  assert.equal(average([]), 0);
+});
+
+test("average remains finite when the mathematical mean is finite", () => {
+  assert.equal(average([Number.MAX_VALUE, Number.MAX_VALUE]), Number.MAX_VALUE);
 });

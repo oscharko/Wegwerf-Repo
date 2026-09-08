@@ -3,6 +3,7 @@
 const selectFiniteNumbers = require("./lib/selectFiniteNumbers.js");
 const median = require("./lib/median.js");
 const range = require("./lib/range.js");
+const summarize = require("./lib/summarize.js");
 const computeMean = require("./lib/computeMean.js");
 const populationVariance = require("./lib/populationVariance.js");
 
@@ -26,4 +27,4 @@ function average(values) {
   return computeMean(finiteValues);
 }
 
-module.exports = { sum, average, median, range, populationVariance };
+module.exports = { sum, average, median, range, populationVariance, summarize };

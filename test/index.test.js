@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { sum, average, median, range, populationVariance } = require("../index.js");
+const { sum, average, median, range, populationVariance, summarize } = require("../index.js");
 
 test("sum adds a list of numbers", () => {
   assert.equal(sum([1, 2, 3]), 6);
@@ -107,4 +107,57 @@ test("populationVariance ignores non-finite values", () => {
 
 test("populationVariance returns 0 when all values are non-finite", () => {
   assert.equal(populationVariance([NaN, Infinity, -Infinity]), 0);
+});
+
+test("summarize returns zeroed defaults when no finite values remain", () => {
+  assert.deepEqual(summarize([NaN, Infinity, -Infinity]), {
+    count: 0,
+    sum: 0,
+    average: 0,
+    median: 0,
+    min: null,
+    max: null,
+    populationVariance: 0,
+  });
+});
+
+test("summarize ignores non-finite values in mixed samples", () => {
+  assert.deepEqual(summarize([1, NaN, 2, Infinity, 3, -Infinity]), {
+    count: 3,
+    sum: 6,
+    average: 2,
+    median: 2,
+    min: 1,
+    max: 3,
+    populationVariance: 2 / 3,
+  });
+});
+
+test("summarize returns a consistent snapshot for a known sample", () => {
+  const values = [2, 4, 4, 4, 5, 5, 7, 9];
+
+  assert.deepEqual(summarize(values), {
+    count: values.length,
+    sum: sum(values),
+    average: average(values),
+    median: median(values),
+    min: range(values).min,
+    max: range(values).max,
+    populationVariance: populationVariance(values),
+  });
+});
+
+test("summarize does not mutate the caller input", () => {
+  const values = [3, 1, 2, Infinity];
+
+  assert.deepEqual(summarize(values), {
+    count: 3,
+    sum: 6,
+    average: 2,
+    median: 2,
+    min: 1,
+    max: 3,
+    populationVariance: 2 / 3,
+  });
+  assert.deepEqual(values, [3, 1, 2, Infinity]);
 });

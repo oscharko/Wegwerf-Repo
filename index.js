@@ -3,6 +3,8 @@
 const selectFiniteNumbers = require("./lib/selectFiniteNumbers.js");
 const median = require("./lib/median.js");
 const range = require("./lib/range.js");
+const computeMean = require("./lib/computeMean.js");
+const populationVariance = require("./lib/populationVariance.js");
 
 /**
  * Sum a list of numbers.
@@ -21,23 +23,7 @@ function sum(values) {
 function average(values) {
   const finiteValues = selectFiniteNumbers(values);
 
-  if (finiteValues.length === 0) {
-    return 0;
-  }
-
-  let mean = finiteValues[0];
-
-  for (let index = 1; index < finiteValues.length; index += 1) {
-    const value = finiteValues[index];
-
-    if ((mean < 0 && value > 0) || (mean > 0 && value < 0)) {
-      mean = mean + value / (index + 1) - mean / (index + 1);
-    } else {
-      mean = mean + (value - mean) / (index + 1);
-    }
-  }
-
-  return mean;
+  return computeMean(finiteValues);
 }
 
-module.exports = { sum, average, median, range };
+module.exports = { sum, average, median, range, populationVariance };

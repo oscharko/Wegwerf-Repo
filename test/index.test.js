@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { sum, average, median, range } = require("../index.js");
+const { sum, average, median, populationVariance, range } = require("../index.js");
 
 test("sum adds a list of numbers", () => {
   assert.equal(sum([1, 2, 3]), 6);
@@ -57,6 +57,22 @@ test("median does not mutate the caller's array", () => {
 
   assert.equal(median(values), 2.5);
   assert.deepEqual(values, [4, 1, 3, 2]);
+});
+
+test("populationVariance of an empty list is 0", () => {
+  assert.equal(populationVariance([]), 0);
+});
+
+test("populationVariance of one finite value is 0", () => {
+  assert.equal(populationVariance([NaN, 4, Infinity]), 0);
+});
+
+test("populationVariance returns the population variance of finite values", () => {
+  assert.equal(populationVariance([2, 4, 4, 4, 5, 5, 7, 9]), 4);
+});
+
+test("populationVariance ignores non-finite entries", () => {
+  assert.equal(populationVariance([1, NaN, Infinity, -Infinity, 3]), 1);
 });
 
 test("range returns null for an empty list", () => {

@@ -18,3 +18,14 @@ the issue.
 ```bash
 npm test
 ```
+
+## Usage
+
+```js
+const { sum, average } = require("./index.js");
+
+sum([1, 2, 3]); // 6
+average([2, 4]); // 3
+```
+
+The library has no runtime dependencies. Run `npm test` to execute the `node:test` suite.

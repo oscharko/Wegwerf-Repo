@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { sum, average, median, range } = require("../index.js");
+const { sum, average, median, populationVariance, range } = require("../index.js");
 
 test("sum adds a list of numbers", () => {
   assert.equal(sum([1, 2, 3]), 6);
@@ -34,6 +34,26 @@ test("average remains finite for repeated maximum values", () => {
 
 test("average of opposite-signed maximum values is 0", () => {
   assert.equal(average([-Number.MAX_VALUE, Number.MAX_VALUE]), 0);
+});
+
+test("populationVariance of an empty list is 0", () => {
+  assert.equal(populationVariance([]), 0);
+});
+
+test("populationVariance of a single finite value is 0", () => {
+  assert.equal(populationVariance([NaN, 4, Infinity]), 0);
+});
+
+test("populationVariance computes the population variance of finite values", () => {
+  assert.equal(populationVariance([1, 2, 3, 4]), 1.25);
+});
+
+test("populationVariance ignores non-finite entries", () => {
+  assert.equal(populationVariance([1, 2, NaN, Infinity, -Infinity, 3]), 2 / 3);
+});
+
+test("populationVariance returns 0 when no finite values remain", () => {
+  assert.equal(populationVariance([NaN, Infinity, -Infinity]), 0);
 });
 
 test("median of an empty list is 0", () => {
